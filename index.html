@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cyber Vault | Project 2</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI",Arial,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:
+        radial-gradient(circle at 10% 20%,#6d28d9 0,transparent 25%),
+        radial-gradient(circle at 90% 10%,#0891b2 0,transparent 25%),
+        radial-gradient(circle at 80% 90%,#db2777 0,transparent 25%),
+        #07051a;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:25px;
+}
+
+.container{
+    width:1050px;
+    max-width:100%;
+    background:rgba(15,12,38,.88);
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:30px;
+    padding:32px;
+    box-shadow:0 25px 80px rgba(0,0,0,.55);
+}
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.brand-icon{
+    width:55px;
+    height:55px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:17px;
+    background:linear-gradient(135deg,#8b5cf6,#06b6d4);
+    font-size:28px;
+}
+
+.brand h1{
+    font-size:25px;
+    letter-spacing:2px;
+}
+
+.brand p{
+    color:#a5b4fc;
+    font-size:12px;
+    margin-top:3px;
+}
+
+.live{
+    padding:9px 15px;
+    border-radius:30px;
+    background:rgba(34,197,94,.12);
+    border:1px solid rgba(34,197,94,.4);
+    color:#4ade80;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.hero{
+    text-align:center;
+    padding:18px 10px 28px;
+}
+
+.hero h2{
+    font-size:38px;
+    background:linear-gradient(90deg,#22d3ee,#a78bfa,#f472b6);
+    -webkit-background-clip:text;
+    color:transparent;
+    margin-bottom:8px;
+}
+
+.hero p{
+    color:#a5b4fc;
+    font-size:14px;
+}
+
+.badges{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:15px;
+}
+
+.badge{
+    padding:7px 13px;
+    border-radius:20px;
+    background:rgba(139,92,246,.12);
+    border:1px solid rgba(139,92,246,.3);
+    color:#ddd6fe;
+    font-size:11px;
+}
+
+.workspace{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.card{
+    background:rgba(255,255,255,.055);
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:22px;
+    padding:20px;
+}
+
+.card-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:13px;
+}
+
+.card-title h3{
+    font-size:14px;
+}
+
+.counter{
+    color:#67e8f9;
+    font-size:11px;
+}
+
+textarea{
+    width:100%;
+    height:175px;
+    resize:none;
+    border:none;
+    outline:none;
+    border-radius:15px;
+    padding:16px;
+    background:#090719;
+    color:white;
+    font-size:15px;
+    line-height:1.6;
+    border:1px solid #312e81;
+}
+
+textarea:focus{
+    border-color:#06b6d4;
+}
+
+textarea::placeholder{
+    color:#64748b;
+}
+
+.key-area{
+    margin-top:15px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.key-area label{
+    font-size:12px;
+    color:#c4b5fd;
+}
+
+input{
+    width:75px;
+    padding:10px;
+    border:none;
+    outline:none;
+    border-radius:10px;
+    background:#090719;
+    border:1px solid #8b5cf6;
+    color:#67e8f9;
+    text-align:center;
+    font-size:15px;
+    font-weight:bold;
+}
+
+.hint{
+    font-size:10px;
+    color:#64748b;
+}
+
+.output{
+    min-height:175px;
+    padding:16px;
+    border-radius:15px;
+    background:#090719;
+    word-break:break-word;
+    line-height:1.6;
+    font-size:15px;
+}
+
+.encrypted{
+    border:1px solid #0891b2;
+    color:#67e8f9;
+}
+
+.decrypted{
+    border:1px solid #22c55e;
+    color:#86efac;
+}
+
+.placeholder{
+    color:#475569;
+}
+
+.controls{
+    display:flex;
+    justify-content:center;
+    gap:13px;
+    flex-wrap:wrap;
+    margin:25px 0;
+}
+
+button{
+    border:none;
+    outline:none;
+    cursor:pointer;
+    color:white;
+    padding:13px 25px;
+    border-radius:13px;
+    font-size:12px;
+    font-weight:bold;
+    transition:.25s;
+}
+
+button:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 25px rgba(0,0,0,.3);
+}
+
+.encrypt{
+    background:linear-gradient(135deg,#06b6d4,#2563eb);
+}
+
+.decrypt{
+    background:linear-gradient(135deg,#22c55e,#059669);
+}
+
+.clear{
+    background:linear-gradient(135deg,#f59e0b,#ea580c);
+}
+
+.reset{
+    background:linear-gradient(135deg,#8b5cf6,#7c3aed);
+}
+
+.status{
+    text-align:center;
+    padding:12px;
+    border-radius:14px;
+    background:rgba(6,182,212,.06);
+    border:1px solid rgba(6,182,212,.15);
+    color:#67e8f9;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.footer{
+    text-align:center;
+    color:#64748b;
+    font-size:10px;
+    margin-top:20px;
+}
+
+@media(max-width:800px){
+    .workspace{
+        grid-template-columns:1fr;
+    }
+
+    .hero h2{
+        font-size:30px;
+    }
+
+    .live{
+        display:none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="topbar">
+        <div class="brand">
+            <div class="brand-icon">🔐</div>
+            <div>
+                <h1>CYBER VAULT</h1>
+                <p>SECURE TEXT PROTECTION SYSTEM</p>
+            </div>
+        </div>
+
+        <div class="live">
+            ● SYSTEM ONLINE
+        </div>
+    </div>
+
+    <div class="hero">
+        <h2>Encryption & Decryption</h2>
+        <p>Protect your message using the Caesar Cipher technique</p>
+
+        <div class="badges">
+            <div class="badge">🛡 Data Confidentiality</div>
+            <div class="badge">🔑 Custom Shift Key</div>
+            <div class="badge">⚡ Instant Processing</div>
+            <div class="badge">🔒 Caesar Cipher</div>
+        </div>
+    </div>
+
+    <div class="workspace">
+
+        <div class="card">
+            <div class="card-title">
+                <h3>📝 ORIGINAL MESSAGE</h3>
+                <span class="counter" id="counter">0 characters</span>
+            </div>
+
+            <textarea
+                id="inputText"
+                placeholder="Type your secret message here..."
+                oninput="updateCounter()"
+            ></textarea>
+
+            <div class="key-area">
+                <label>🔑 SHIFT KEY</label>
+
+                <input
+                    type="number"
+                    id="shiftKey"
+                    value="3"
+                    min="0"
+                    max="25"
+                >
+
+                <span class="hint">0 - 25</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">
+                <h3>🔐 ENCRYPTED MESSAGE</h3>
+            </div>
+
+            <div class="output encrypted" id="encryptedOutput">
+                <span class="placeholder">
+                    Encrypted message will appear here...
+                </span>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">
+                <h3>🔓 DECRYPTED MESSAGE</h3>
+            </div>
+
+            <div class="output decrypted" id="decryptedOutput">
+                <span class="placeholder">
+                    Decrypted message will appear here...
+                </span>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">
+                <h3>📊 SECURITY STATUS</h3>
+            </div>
+
+            <div class="status" id="securityStatus">
+                ● READY FOR SECURE PROCESSING
+            </div>
+
+            <div style="margin-top:18px;color:#94a3b8;font-size:11px;line-height:1.7;">
+                Encryption converts readable text into an altered form.
+                Decryption reverses the process using the same shift key.
+            </div>
+        </div>
+
+    </div>
+
+    <div class="controls">
+
+        <button class="encrypt" onclick="encryptText()">
+            🔒 ENCRYPT
+        </button>
+
+        <button class="decrypt" onclick="decryptText()">
+            🔓 DECRYPT
+        </button>
+
+        <button class="clear" onclick="clearAll()">
+            🧹 CLEAR
+        </button>
+
+        <button class="reset" onclick="resetKey()">
+            🔄 RESET KEY
+        </button>
+
+    </div>
+
+    <div class="footer">
+        DecodeLabs Internship • Cyber Security • Project 2
+        <br>
+        Basic Encryption & Decryption using Caesar Cipher
+    </div>
+
+</div>
+
+<script>
+
+function caesarEncrypt(text, shift){
+
+    let result = "";
+
+    for(let char of text){
+
+        if(char >= "A" && char <= "Z"){
+
+            result += String.fromCharCode(
+                ((char.charCodeAt(0) - 65 + shift) % 26) + 65
+            );
+
+        } else if(char >= "a" && char <= "z"){
+
+            result += String.fromCharCode(
+                ((char.charCodeAt(0) - 97 + shift) % 26) + 97
+            );
+
+        } else {
+
+            result += char;
+        }
+    }
+
+    return result;
+}
+
+function caesarDecrypt(text, shift){
+    return caesarEncrypt(text, (26 - shift) % 26);
+}
+
+function encryptText(){
+
+    const text =
+        document.getElementById("inputText").value;
+
+    let shift =
+        parseInt(document.getElementById("shiftKey").value);
+
+    if(!text.trim()){
+        alert("Please enter your message!");
+        return;
+    }
+
+    if(isNaN(shift)){
+        alert("Please enter a valid shift key!");
+        return;
+    }
+
+    shift = ((shift % 26) + 26) % 26;
+
+    const encrypted =
+        caesarEncrypt(text, shift);
+
+    document.getElementById("encryptedOutput").innerText =
+        encrypted;
+
+    document.getElementById("decryptedOutput").innerHTML =
+        '<span class="placeholder">Click DECRYPT to recover the original message...</span>';
+
+    document.getElementById("securityStatus").innerText =
+        "● MESSAGE ENCRYPTED SUCCESSFULLY";
+
+    document.getElementById("securityStatus").style.color =
+        "#67e8f9";
+}
+
+function decryptText(){
+
+    const encrypted =
+        document.getElementById("encryptedOutput").innerText;
+
+    if(
+        !encrypted.trim() ||
+        encrypted === "Encrypted message will appear here..."
+    ){
+        alert("Please encrypt a message first!");
+        return;
+    }
+
+    let shift =
+        parseInt(document.getElementById("shiftKey").value);
+
+    if(isNaN(shift)){
+        alert("Please enter a valid shift key!");
+        return;
+    }
+
+    shift = ((shift % 26) + 26) % 26;
+
+    const decrypted =
+        caesarDecrypt(encrypted, shift);
+
+    document.getElementById("decryptedOutput").innerText =
+        decrypted;
+
+    document.getElementById("securityStatus").innerText =
+        "● MESSAGE DECRYPTED SUCCESSFULLY";
+
+    document.getElementById("securityStatus").style.color =
+        "#4ade80";
+}
+
+function clearAll(){
+
+    document.getElementById("inputText").value = "";
+
+    document.getElementById("encryptedOutput").innerHTML =
+        '<span class="placeholder">Encrypted message will appear here...</span>';
+
+    document.getElementById("decryptedOutput").innerHTML =
+        '<span class="placeholder">Decrypted message will appear here...</span>';
+
+    document.getElementById("counter").innerText =
+        "0 characters";
+
+    document.getElementById("securityStatus").innerText =
+        "● READY FOR SECURE PROCESSING";
+
+    document.getElementById("securityStatus").style.color =
+        "#67e8f9";
+}
+
+function resetKey(){
+
+    document.getElementById("shiftKey").value = 3;
+
+    document.getElementById("securityStatus").innerText =
+        "● SHIFT KEY RESET TO 3";
+
+    document.getElementById("securityStatus").style.color =
+        "#c4b5fd";
+}
+
+function updateCounter(){
+
+    const text =
+        document.getElementById("inputText").value;
+
+    document.getElementById("counter").innerText =
+        text.length + " characters";
+}
+
+</script>
+
+</body>
+</html>
